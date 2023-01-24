@@ -12,7 +12,7 @@ const Products = ({result}: Props) => {
   if (result.error) return <p>Error</p>;
 
   return (
-    <ul className="flex justify-center ">
+    <ul className="container flex flex-col md:flex-row md:px-7 gap-8 ">
       {result.products.map((product) => (
         <Product key={product.id} product={product} />
       ))}

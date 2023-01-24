@@ -1,6 +1,8 @@
 import type {AppProps} from "next/app";
 import Head from "next/head";
 
+import Layout from "../components/commons/Layout";
+
 import "../css/global.css";
 
 function App({Component, pageProps}: AppProps) {
@@ -9,7 +11,9 @@ function App({Component, pageProps}: AppProps) {
       <Head>
         <title>Basement Supply</title>
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }

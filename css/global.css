@@ -25,3 +25,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.container {
+  @apply max-w-[1440px] px-4 md:px-8 mx-auto;
+}

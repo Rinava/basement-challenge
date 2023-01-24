@@ -1,0 +1,17 @@
+@keyframes marqueeAnimation {
+  100% {
+    transform: translateX(-33.3333333%);
+  }
+}
+
+.marquee {
+  --animationDuration: 90s;
+}
+
+.marquee.left {
+  animation: marqueeAnimation var(--animationDuration) linear infinite;
+}
+
+.marquee.right {
+  animation: marqueeAnimation var(--animationDuration) linear infinite reverse;
+}
