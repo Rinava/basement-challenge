@@ -6,4 +6,11 @@ interface Result {
   error: boolean;
 }
 
+interface ItemCheckout {
+  id: number;
+  product: Product;
+  quantity: number;
+  total: number;
+}
+
 export type {Result, Product};
