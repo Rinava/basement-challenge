@@ -13,6 +13,11 @@ module.exports = {
       21: "1.3125rem",
       35: "2.1875rem",
     },
+    colors: {
+      black: "#000000",
+      white: "#FFFFFF",
+      orange: "#ff4d00",
+    },
   },
 
   variants: {

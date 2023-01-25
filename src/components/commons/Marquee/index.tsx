@@ -18,7 +18,7 @@ export const Marquee = ({items, className, textClassName, direction = "left"}: M
   }, [items]);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div
         className={clsx(
           styles.marquee,
