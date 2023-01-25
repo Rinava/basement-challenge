@@ -27,17 +27,17 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div ref={ref} className="relative w-full h-full">
-      <FloatingShit variant reference={ref} />
-      <FloatingShit reference={ref} />
+    <main ref={ref} className="relative w-full h-full">
       <Header className="md:mt-3 mb-4 md:mb-14" />
+      <FloatingShit reference={ref} />
+      <FloatingShit reference={ref} variant="two" />
       <Marquee
         className="py-1.5 border-y border-solid border-white gap-4 mb-12 md:py-2.5 md:gap-8 md:mb-24"
         items={["A man can't have enough base­ment swag"]}
         textClassName="text-20 font-bold md:text-35"
       />
       <Products result={result} />
-    </div>
+    </main>
   );
 };
 

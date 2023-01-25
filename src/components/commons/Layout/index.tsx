@@ -13,7 +13,7 @@ const Layout = ({children}: LayoutProps) => {
     <>
       <Meta />
       <NavBar />
-      <main>{children}</main>
+      {children}
       <Footer />
     </>
   );
