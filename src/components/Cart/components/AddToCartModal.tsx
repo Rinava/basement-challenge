@@ -5,7 +5,7 @@ import {CartContext} from "../../commons/Layout";
 
 import Item from "./Item";
 
-const AddToCart = ({product, open}) => {
+const AddToCartModal = ({product, open}) => {
   const context = useContext(CartContext);
   const {setAddToCartOpen} = context;
 
@@ -38,4 +38,4 @@ const AddToCart = ({product, open}) => {
   );
 };
 
-export default AddToCart;
+export default AddToCartModal;

@@ -1,4 +1,5 @@
 import {useState, useContext, useEffect, useRef} from "react";
+import {motion} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -74,13 +75,15 @@ const NavBar = () => {
             src="/hd-4k.svg"
             width={284}
           />
-          <button
+          <motion.button
             ref={cartButtonRef}
             className="leading-none border px-5 py-3 rounded-full text-14 uppercase font-bold md:px-8 md:py-4 md:text-18"
+            whileHover={{scale: 1.1, transition: {duration: 0.2}}}
+            whileTap={{scale: 0.9}}
             onClick={() => setCartOpen(true)}
           >
             Cart (1)
-          </button>
+          </motion.button>
         </div>
       </nav>
     </>

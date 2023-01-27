@@ -5,17 +5,17 @@ import {CartContext} from "./../commons/Layout";
 import Heading from "./components/Heading";
 import Item from "./components/Item";
 import Checkout from "./components/Checkout";
-import AddToCart from "./components/AddToCart";
+import AddToCartModal from "./components/AddToCartModal";
 
 const Cart = ({open, addToCartOpen, addToCartProduct}) => {
   const {items, setCartOpen} = useContext(CartContext);
 
   return (
     <>
-      <AddToCart open={addToCartOpen} product={addToCartProduct} />
+      <AddToCartModal open={addToCartOpen} product={addToCartProduct} />
       <div
         className={clsx(
-          "fixed top-0 w-full h-full px-4 bg-black z-50 flex flex-col h-full justify-between",
+          "fixed top-0 w-full h-full px-4 bg-black z-50 flex flex-col justify-between",
           open ? "block" : "hidden",
         )}
       >

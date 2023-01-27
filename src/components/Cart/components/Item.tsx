@@ -5,15 +5,36 @@ import {useState} from "react";
 import parsePrice from "../../../utils/parsePrice";
 
 const QuantitySelector = ({quantity, setQuantity}) => {
+  const handleQuantityChange = (operation) => {
+    if (operation === "+") {
+      setQuantity(quantity + 1);
+    } else if (operation === "-" && quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <div className="flex items-center gap-2">
       <label className="text-11 uppercase">Quantity:</label>
       <div className="flex border border-white rounded-full py-0.5">
-        <button className="text-11 pl-1.5 " onClick={() => setQuantity(quantity - 1)}>
+        <button className="text-11 pl-1.5 " onClick={() => handleQuantityChange("-")}>
           -
         </button>
-        <span className="text-11 px-1.5">{quantity}</span>
-        <button className="text-11 pr-1.5" onClick={() => setQuantity(quantity + 1)}>
+        <span className="text-11 px-1.5">
+          <input
+            className="w-5 text-center bg-black clean-n-input"
+            min="1"
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            onKeyPress={(e) => {
+              if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+          />
+        </span>
+        <button className="text-11 pr-1.5" onClick={() => handleQuantityChange("+")}>
           +
         </button>
       </div>
