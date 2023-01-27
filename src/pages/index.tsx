@@ -1,34 +1,23 @@
 import type {NextPage} from "next";
-import {useState, useEffect, useRef} from "react";
+import {useRef} from "react";
 
 import Products from "../components/Products";
-import type {Product} from "../types/product";
+import type {Product as ProductType} from "../types";
 import getProducts from "../lib/api";
 import Header from "../components/Header";
 import {Marquee} from "../components/commons/Marquee";
 import FloatingShit from "../components/FloatingShit";
 
-const Home: NextPage = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [result, setResult] = useState<{products: Product[]; loading: boolean; error: boolean}>({
-    products: [],
-    loading: true,
-    error: false,
-  });
+interface HomeProps {
+  products: ProductType[];
+}
 
-  useEffect(() => {
-    getProducts()
-      .then((products: Product[]) => {
-        setResult({products, loading: false, error: false});
-      })
-      .catch(() => {
-        setResult({products: [], loading: false, error: true});
-      });
-  }, []);
+const Home: NextPage<HomeProps> = ({products}) => {
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <main ref={ref} className="relative w-full h-full">
-      <Header className="md:mt-3 mb-4 md:mb-14" />
+    <main ref={ref} className="relative w-full h-full overflow-hidden pt-32">
+      <Header className="md:mt-6 mb-4 md:mb-14" />
       <FloatingShit reference={ref} />
       <FloatingShit reference={ref} variant="two" />
       <Marquee
@@ -36,9 +25,19 @@ const Home: NextPage = () => {
         items={["A man can't have enough base­ment swag"]}
         textClassName="text-20 font-bold md:text-35"
       />
-      <Products result={result} />
+      <Products products={products} />
     </main>
   );
+};
+
+export const getStaticProps = async () => {
+  const products = await getProducts();
+
+  return {
+    props: {
+      products: products,
+    },
+  };
 };
 
 export default Home;

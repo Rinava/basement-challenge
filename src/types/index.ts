@@ -1,16 +1,4 @@
 import {Product} from "./product";
+import {ItemCheckout} from "./itemCheckout";
 
-interface Result {
-  products: Product[];
-  loading: boolean;
-  error: boolean;
-}
-
-interface ItemCheckout {
-  id: number;
-  product: Product;
-  quantity: number;
-  total: number;
-}
-
-export type {Result, Product};
+export type {Product, ItemCheckout};

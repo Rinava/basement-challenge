@@ -1,11 +1,11 @@
-enum Size {
+export enum Size {
   S = "S",
   M = "M",
   L = "L",
   XL = "XL",
 }
 
-type SizeWithStock = {
+export type SizeWithStock = {
   size: Size;
   quantity: number;
 };
