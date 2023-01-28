@@ -10,7 +10,7 @@ interface MarqueeProps {
   direction?: "left" | "right";
 }
 
-export const Marquee = ({items, className, textClassName, direction = "left"}: MarqueeProps) => {
+const Marquee = ({items, className, textClassName, direction = "left"}: MarqueeProps) => {
   const renderedItems: string[] = useMemo(() => {
     return Array(12)
       .fill(items)
@@ -18,7 +18,7 @@ export const Marquee = ({items, className, textClassName, direction = "left"}: M
   }, [items]);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="overflow-hidden">
       <div
         className={clsx(
           styles.marquee,
@@ -29,15 +29,13 @@ export const Marquee = ({items, className, textClassName, direction = "left"}: M
       >
         {renderedItems.map((item, i) => (
           <Fragment key={i}>
-            <span className={clsx("relative whitespace-nowrap", styles.item, textClassName)}>
-              {item}
-            </span>
-            <span className={clsx("relative whitespace-nowrap", styles.item, textClassName)}>
-              —
-            </span>
+            <span className={clsx("whitespace-nowrap", textClassName)}>{item}</span>
+            <span className={clsx("whitespace-nowrap", textClassName)}>—</span>
           </Fragment>
         ))}
       </div>
     </div>
   );
 };
+
+export default Marquee;

@@ -1,14 +1,18 @@
-import {useContext} from "react";
 import clsx from "clsx";
 
-import {CartContext} from "./../commons/Layout";
+import Button from "../commons/Button";
+import {useCart} from "../../contexts/CartContext";
+
 import Heading from "./components/Heading";
 import Item from "./components/Item";
 import Checkout from "./components/Checkout";
 import AddToCartModal from "./components/AddToCartModal";
 
-const Cart = ({open, addToCartOpen, addToCartProduct}) => {
-  const {items, setCartOpen} = useContext(CartContext);
+const Cart = () => {
+  const {
+    cart: {items, isOpen, setOpenState},
+    addToCart: {isOpen: addToCartOpen, product: addToCartProduct},
+  } = useCart();
 
   return (
     <>
@@ -16,13 +20,13 @@ const Cart = ({open, addToCartOpen, addToCartProduct}) => {
       <div
         className={clsx(
           "fixed top-0 w-full h-full px-4 bg-black z-50 flex flex-col justify-between",
-          open ? "block" : "hidden",
+          isOpen ? "block" : "hidden",
         )}
       >
         <div>
-          <button className="block ml-auto my-2" onClick={() => setCartOpen(false)}>
+          <Button className="block ml-auto my-2" onClick={() => setOpenState(false)}>
             Close
-          </button>
+          </Button>
           <Heading />
         </div>
 

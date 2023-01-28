@@ -1,13 +1,20 @@
 import clsx from "clsx";
-import {useContext} from "react";
 
-import {CartContext} from "../../commons/Layout";
+import {useCart} from "../../../contexts/CartContext";
+import {Product} from "../../../types";
+import Button from "../../commons/Button";
 
 import Item from "./Item";
 
-const AddToCartModal = ({product, open}) => {
-  const context = useContext(CartContext);
-  const {setAddToCartOpen} = context;
+interface AddToCartModalProps {
+  product: Product;
+  open: boolean;
+}
+
+const AddToCartModal = ({product, open}: AddToCartModalProps) => {
+  const {
+    addToCart: {close},
+  } = useCart();
 
   return (
     <div
@@ -22,15 +29,18 @@ const AddToCartModal = ({product, open}) => {
         <div className="w-full">
           <Item className="w-full" product={product} />
           <div className="flex justify-end">
-            <button
+            <Button
               className="uppercase bg-black py-4 px-4 border-x border-b"
-              onClick={() => setAddToCartOpen(false)}
+              onClick={() => close()}
             >
               Cancel
-            </button>
-            <button className="uppercase bg-black px-4 border-r border-b text-orange border-white">
+            </Button>
+            <Button
+              className="uppercase bg-black px-4 border-r border-b text-orange border-white"
+              onClick={() => {}}
+            >
               Add To Cart
-            </button>
+            </Button>
           </div>
         </div>
       </div>

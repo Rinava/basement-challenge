@@ -3,7 +3,7 @@ import Image from "next/image";
 import {useState} from "react";
 
 import parsePrice from "../../../utils/parsePrice";
-
+import Button from "../../commons/Button";
 const QuantitySelector = ({quantity, setQuantity}) => {
   const handleQuantityChange = (operation) => {
     if (operation === "+") {
@@ -17,9 +17,9 @@ const QuantitySelector = ({quantity, setQuantity}) => {
     <div className="flex items-center gap-2">
       <label className="text-11 uppercase">Quantity:</label>
       <div className="flex border border-white rounded-full py-0.5">
-        <button className="text-11 pl-1.5 " onClick={() => handleQuantityChange("-")}>
+        <Button className="text-11 pl-1.5 " onClick={() => handleQuantityChange("-")}>
           -
-        </button>
+        </Button>
         <span className="text-11 px-1.5">
           <input
             className="w-5 text-center bg-black clean-n-input"
@@ -34,9 +34,9 @@ const QuantitySelector = ({quantity, setQuantity}) => {
             }}
           />
         </span>
-        <button className="text-11 pr-1.5" onClick={() => handleQuantityChange("+")}>
+        <Button className="text-11 pr-1.5" onClick={() => handleQuantityChange("+")}>
           +
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -69,7 +69,8 @@
       }
     ],
     "image": "/products/cap.png"
-  },   {
+  },
+  {
     "id": 4,
     "title": "Black t-shirt",
     "description": "Unisex Basic Softstyle T-Shirt",
@@ -140,5 +141,4 @@
     ],
     "image": "/products/cap.png"
   }
-  
 ]

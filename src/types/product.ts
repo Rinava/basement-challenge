@@ -5,18 +5,14 @@ export enum Size {
   XL = "XL",
 }
 
-export type SizeWithStock = {
-  size: Size;
-  quantity: number;
-};
-
-interface Product {
+export interface Product {
   id: number;
   image: string;
   title: string;
   description: string;
   price: number;
-  stock: SizeWithStock[];
+  stock: {
+    size: Size;
+    quantity: number;
+  }[];
 }
-
-export type {Product};
