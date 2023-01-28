@@ -47,11 +47,11 @@ const Meta = () => (
       },
     ]}
     canonical="https://basement.supply/"
-    defaultTitle="Basement Supply"
+    defaultTitle="Basement Supply | We make cool shit that looks good"
     description="The store where to find real Basement swag."
     openGraph={{
       url: "https://basement.supply/",
-      title: "Basement Supply",
+      title: "Basement Supply | We make cool shit that looks good",
       description: "The store where to find real Basement swag.",
       images: [
         {
@@ -62,8 +62,8 @@ const Meta = () => (
         },
       ],
     }}
-    title="Basement Supply"
-    titleTemplate="Basement Supply"
+    title="Basement Supply | We make cool shit that looks good"
+    titleTemplate="Basement Supply | We make cool shit that looks good"
     twitter={{
       handle: "@basementstudio",
       site: "@basementstudio",

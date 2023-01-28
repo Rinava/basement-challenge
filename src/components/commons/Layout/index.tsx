@@ -1,6 +1,7 @@
 import React, {createContext, useReducer} from "react";
 
 import {ItemCheckout} from "../../../types";
+import Cursor from "../../Cursor";
 
 import Footer from "./components/Footer";
 import Meta from "./components/Meta";
@@ -26,6 +27,9 @@ const reducer = (state: ItemCheckout[], action: any) => {
   }
 };
 
+interface ICursorCtx {
+  setCursorType: React.Dispatch<React.SetStateAction<string | null>>;
+}
 interface ICartCtx {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setAddToCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +43,9 @@ interface IDragCartCtx {
   setPositionClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export const CursorContext = createContext<ICursorCtx>({
+  setCursorType: () => {},
+});
 export const CartContext = createContext<ICartCtx>({
   setCartOpen: () => {},
   setAddToCartOpen: () => {},
@@ -59,6 +66,7 @@ interface LayoutProps {
 const Layout = ({children}: LayoutProps) => {
   const [items, itemsHandler] = useReducer<React.Reducer<ItemCheckout[], any>>(reducer, []);
 
+  const [cursorType, setCursorType] = React.useState<string | null>(null);
   const [cartOpen, setCartOpen] = React.useState<boolean>(false);
   const [AddToCartOpen, setAddToCartOpen] = React.useState<boolean>(false);
   const [addToCartProduct, setAddToCartProduct] = React.useState<any>(null);
@@ -71,30 +79,31 @@ const Layout = ({children}: LayoutProps) => {
   const [dragState, setDragState] = React.useState<string | null>(null);
   const [positionClose, setPositionClose] = React.useState<boolean>(false);
 
-  console.log(dragState);
-
   return (
-    <DragCartContext.Provider value={{dragState, setDragState, positionClose, setPositionClose}}>
-      <CartContext.Provider
-        value={{
-          checkout: itemsHandler,
-          setAddToCartOpen,
-          setCartOpen,
-          addToCart,
-        }}
-      >
-        <Meta />
-        <NavBar />
-        <Cart
-          addToCartOpen={AddToCartOpen}
-          addToCartProduct={addToCartProduct}
-          items={items}
-          open={cartOpen}
-        />
-        {children}
-        <Footer />
-      </CartContext.Provider>
-    </DragCartContext.Provider>
+    <CursorContext.Provider value={{setCursorType}}>
+      <DragCartContext.Provider value={{dragState, setDragState, positionClose, setPositionClose}}>
+        <CartContext.Provider
+          value={{
+            checkout: itemsHandler,
+            setAddToCartOpen,
+            setCartOpen,
+            addToCart,
+          }}
+        >
+          <Cursor cursorType={cursorType} />
+          <Meta />
+          <NavBar />
+          <Cart
+            addToCartOpen={AddToCartOpen}
+            addToCartProduct={addToCartProduct}
+            items={items}
+            open={cartOpen}
+          />
+          {children}
+          <Footer />
+        </CartContext.Provider>
+      </DragCartContext.Provider>
+    </CursorContext.Provider>
   );
 };
 

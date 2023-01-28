@@ -1,6 +1,8 @@
-import * as React from "react";
+import {useContext} from "react";
 import {motion, useMotionValue, useVelocity, useSpring, useTransform} from "framer-motion";
 import clsx from "clsx";
+
+import {CursorContext} from "../commons/Layout";
 
 interface FloatingShitProps {
   reference: React.RefObject<HTMLDivElement>;
@@ -55,16 +57,19 @@ const ShitTwo = () => (
 
 const variations = {
   default: {
-    component: ShitOne,
+    component: <ShitOne />,
     className: "top-15 left-0  md:top-50 md:left-3",
   },
   two: {
-    component: ShitTwo,
+    component: <ShitTwo />,
     className: "top-14 right-0 md:top-44 md:right-2",
   },
 };
 
 const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
+  const cursorContext = useContext(CursorContext);
+  const {setCursorType} = cursorContext;
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -93,9 +98,13 @@ const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
       dragConstraints={reference}
       dragTransition={{bounceStiffness: 150, bounceDamping: 10}}
       style={{x, y, scaleX, scaleY}}
-      whileDrag={{cursor: "grabbing", scale: 1.25, opacity: 0.85}}
+      whileDrag={{scale: 1.25, opacity: 0.85}}
+      onDragEnd={() => setCursorType("hover")}
+      onDragStart={() => setCursorType("grab")}
+      onHoverEnd={() => setCursorType("default")}
+      onHoverStart={() => setCursorType("hover")}
     >
-      {React.createElement(variations[variant].component)}
+      {variations[variant].component}
     </motion.div>
   );
 };

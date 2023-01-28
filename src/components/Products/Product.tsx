@@ -4,6 +4,7 @@ import {useContext} from "react";
 import {motion} from "framer-motion";
 
 import {CartContext} from "../commons/Layout";
+import {CursorContext} from "../commons/Layout";
 import {DragCartContext} from "../commons/Layout";
 import {Product} from "../../types/product";
 
@@ -17,10 +18,12 @@ const Product = ({product, className}: Props) => {
   const {dragState, setDragState, positionClose} = contextDragCart;
   const contextCart = useContext(CartContext);
   const {addToCart} = contextCart;
+  const contextCursor = useContext(CursorContext);
+  const {setCursorType} = contextCursor;
 
   return (
     <li className={clsx("group", className)}>
-      <button className="w-full" onClick={() => {}}>
+      <button className="w-full">
         <div className="relative   drop-shadow-orange">
           <div className="z-10 absolute w-full h-full bg-gradient-to-b from-black to-[#1D1D1D] transition-transform asdgroup-hover:scale-y-125 origin-bottom-left duration-500" />
           <MotionImage
@@ -48,8 +51,11 @@ const Product = ({product, className}: Props) => {
               }
             }}
             onDragStart={() => {
+              setCursorType("grab");
               setDragState("grabbing");
             }}
+            onMouseEnter={() => setCursorType("addProduct")}
+            onMouseLeave={() => setCursorType("default")}
           />
           <Image
             alt={product.title}

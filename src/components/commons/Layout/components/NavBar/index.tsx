@@ -51,14 +51,20 @@ const NavBar = () => {
         mousePosition.y < cartBoundingBox.y + cartBoundingBox.height + offset
       ) {
         setPositionClose(true);
-        console.log("inside");
       } else {
         setPositionClose(false);
       }
     } else {
       setPositionClose(false);
     }
-  }, [mousePosition]);
+  }, [
+    cartBoundingBox.height,
+    cartBoundingBox.width,
+    cartBoundingBox.x,
+    cartBoundingBox.y,
+    mousePosition,
+    setPositionClose,
+  ]);
 
   return (
     <>

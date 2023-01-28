@@ -65,7 +65,7 @@ const SizeSelector = () => {
             </label>
             <input
               checked={s === size}
-              className="hidden"
+              className="appearance-none"
               id={`size-${s}`}
               name="size"
               type="radio"
