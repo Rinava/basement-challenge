@@ -6,9 +6,8 @@ import Product from "./Product";
 
 interface Props {
   products: ProductType[];
-  className?: string;
 }
-const Products = ({products, className}: Props) => {
+const Products = ({products}: Props) => {
   return (
     <ul className="container grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 md:px-7 gap-8 mb-12 md:mb-14">
       {products.map((product) => (

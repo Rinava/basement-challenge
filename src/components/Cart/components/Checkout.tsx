@@ -13,7 +13,7 @@ const Checkout = () => {
   return (
     <Button
       className="w-full py-4"
-      onClick={() => console.log("checkout")}
+      onClick={() => {}}
       onMouseEnter={() => handleCheckoutHover(true)}
       onMouseLeave={() => handleCheckoutHover(false)}
     >

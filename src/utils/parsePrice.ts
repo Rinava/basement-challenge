@@ -1,3 +1,3 @@
-const parsePrice = (price: string) => `$${price.toString().replace(".", ",")}`;
+const parsePrice = (price: string | number) => `$${price.toString().replace(".", ",")}`;
 
 export default parsePrice;

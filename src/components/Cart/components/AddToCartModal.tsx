@@ -7,7 +7,7 @@ import Button from "../../commons/Button";
 import Item from "./Item";
 
 interface AddToCartModalProps {
-  product: Product;
+  product: Product | null;
   open: boolean;
 }
 
@@ -16,18 +16,23 @@ const AddToCartModal = ({product, open}: AddToCartModalProps) => {
     addToCart: {close},
   } = useCart();
 
-  return (
+  return product ? (
     <div
       aria-labelledby="modal-title"
       aria-modal="true"
-      className={clsx("relative z-[100]", !open && "hidden")}
+      className={clsx("relative z-modal", !open && "hidden")}
       role="dialog"
     >
       <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
 
       <div className="fixed inset-0 z-[10] overflow-y-auto flex justify-center items-center m-auto max-w-lg x-4">
         <div className="w-full">
-          <Item className="w-full" product={product} />
+          <Item
+            className="w-full"
+            item={{
+              product,
+            }}
+          />
           <div className="flex justify-end">
             <Button
               className="uppercase bg-black py-4 px-4 border-x border-b"
@@ -45,7 +50,7 @@ const AddToCartModal = ({product, open}: AddToCartModalProps) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default AddToCartModal;
