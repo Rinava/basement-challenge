@@ -1,6 +1,7 @@
+import {useState} from "react";
 import Image from "next/image";
-import clsx from "clsx";
 import {motion} from "framer-motion";
+import clsx from "clsx";
 
 import {Product} from "../../types/product";
 import {useCart} from "../../contexts/CartContext";
@@ -13,19 +14,20 @@ interface Props {
 }
 const MotionImage = motion(Image);
 const Product = ({product, className}: Props) => {
-  const {isGrabbing, isMouseCloserToCart} = useDragToCart();
+  const [grabbing, setGrabbing] = useState(false);
+  const {isMouseCloserToCart} = useDragToCart();
   const {addToCart} = useCart();
   const {cursor, setCursor} = useCursor();
 
   const handleDragStart = () => {
     setCursor("grab");
-    isGrabbing.set(true);
+    setGrabbing(true);
   };
   const handleDragEnd = () => {
     isMouseCloserToCart.value && addToCart.open(product);
 
     setCursor("default");
-    isGrabbing.set(false);
+    setGrabbing(false);
   };
   const handleMouseEnter = () => cursor !== "grab" && setCursor("addProduct");
   const handleMouseLeave = () => cursor !== "grab" && setCursor("default");
@@ -56,7 +58,7 @@ const Product = ({product, className}: Props) => {
           alt={product.title}
           className={clsx(
             "absolute left-0 top-0 z-10 w-full object-cover bg-opacity-0 brightness-0 transition aspect-[343/392] md:aspect-[440/578]",
-            isGrabbing.value && "drop-shadow-[0_0px_0.25rem_#fff]",
+            grabbing && "drop-shadow-[0_0px_0.25rem_#fff]",
           )}
           height={392}
           src={product.image}

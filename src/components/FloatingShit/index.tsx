@@ -57,7 +57,7 @@ const ShitTwo = () => (
 const variations = {
   default: {
     component: <ShitOne />,
-    className: "top-15 left-0  md:top-50 md:left-3",
+    className: "top-15 left-0 md:top-50 md:left-3",
   },
   two: {
     component: <ShitTwo />,
@@ -90,7 +90,7 @@ const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
       drag
       aria-hidden="true"
       className={clsx(
-        "z-[90] absolute w-20 h-20 opacity-75 cursor-pointer hover:opacity-80 md:w-48 md:h-48 group",
+        "z-50 absolute w-20 h-20 opacity-75 cursor-pointer hover:opacity-80 md:w-48 md:h-48 group",
         variations[variant].className,
       )}
       dragConstraints={reference}

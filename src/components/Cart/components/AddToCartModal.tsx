@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 import {useCart} from "../../../contexts/CartContext";
 import {Product} from "../../../types";
-import Button from "../../commons/Button";
+import Actionable from "../../commons/Actionable";
 
 import Item from "./Item";
 
@@ -34,18 +34,18 @@ const AddToCartModal = ({product, open}: AddToCartModalProps) => {
             }}
           />
           <div className="flex justify-end">
-            <Button
+            <Actionable
+              action={() => close()}
               className="uppercase bg-black py-4 px-4 border-x border-b"
-              onClick={() => close()}
             >
               Cancel
-            </Button>
-            <Button
+            </Actionable>
+            <Actionable
+              action={() => {}}
               className="uppercase bg-black px-4 border-r border-b text-orange border-white"
-              onClick={() => {}}
             >
               Add To Cart
-            </Button>
+            </Actionable>
           </div>
         </div>
       </div>

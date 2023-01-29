@@ -4,7 +4,7 @@ import {useState} from "react";
 
 import {CartItem} from "../../../types";
 import parsePrice from "../../../utils/parsePrice";
-import Button from "../../commons/Button";
+import Actionable from "../../commons/Actionable";
 
 const QuantitySelector = ({
   quantity,
@@ -25,9 +25,9 @@ const QuantitySelector = ({
     <div className="flex items-center gap-2">
       <label className="text-11 uppercase">Quantity:</label>
       <div className="flex border border-white rounded-full py-0.5">
-        <Button className="text-11 pl-1.5 " onClick={() => handleQuantityChange("-")}>
+        <Actionable action={() => handleQuantityChange("-")} className="text-11 pl-1.5 ">
           -
-        </Button>
+        </Actionable>
         <span className="text-11 px-1.5">
           <input
             className="w-5 text-center bg-black clean-n-input"
@@ -42,9 +42,9 @@ const QuantitySelector = ({
             }}
           />
         </span>
-        <Button className="text-11 pr-1.5" onClick={() => handleQuantityChange("+")}>
+        <Actionable action={() => handleQuantityChange("+")} className="text-11 pr-1.5">
           +
-        </Button>
+        </Actionable>
       </div>
     </div>
   );

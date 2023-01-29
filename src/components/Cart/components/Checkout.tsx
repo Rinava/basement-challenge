@@ -1,6 +1,6 @@
 import {motion, useSpring, useTransform} from "framer-motion";
 
-import Button from "../../commons/Button";
+import Actionable from "../../commons/Actionable";
 
 const Checkout = () => {
   const value = useSpring(0, {stiffness: 300, damping: 30});
@@ -11,9 +11,9 @@ const Checkout = () => {
   };
 
   return (
-    <Button
+    <Actionable
+      action={() => {}}
       className="w-full py-4"
-      onClick={() => {}}
       onMouseEnter={() => handleCheckoutHover(true)}
       onMouseLeave={() => handleCheckoutHover(false)}
     >
@@ -33,7 +33,7 @@ const Checkout = () => {
           mask="url(#hover)"
         />
       </svg>
-    </Button>
+    </Actionable>
   );
 };
 

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import Button from "../commons/Button";
+import Actionable from "../commons/Actionable";
 import {useCart} from "../../contexts/CartContext";
 
 import Heading from "./components/Heading";
@@ -24,9 +24,9 @@ const Cart = () => {
         )}
       >
         <div>
-          <Button className="block ml-auto my-2" onClick={() => setOpenState(false)}>
+          <Actionable action={() => setOpenState(false)} className="block ml-auto my-2">
             Close
-          </Button>
+          </Actionable>
           <Heading />
         </div>
 

@@ -22,7 +22,7 @@ const Marquee = ({items, className, textClassName, direction = "left"}: MarqueeP
       <div
         className={clsx(
           styles.marquee,
-          "flex w-fit",
+          "flex w-fit select-none",
           direction === "left" ? styles.left : styles.right,
           className,
         )}

@@ -9,7 +9,7 @@ interface HeaderProps {
 const Pill = ({children, className}: {children: ReactNode; className?: string}) => (
   <span
     className={clsx(
-      "absolute bottom-2 md:bottom-5 xl:bottom-10 border-2 border-solid border-white px-3 md:px-6 xl:px-12 py-2 md:py-3 xl:py-6 rounded-[100%] leading-none text-[6px]  xl:text-20 md:text-16",
+      "select-none absolute bottom-2 md:bottom-5 xl:bottom-10 border-2 border-solid border-white px-3 md:px-6 xl:px-12 py-2 md:py-3 xl:py-6 rounded-[100%] leading-none text-[6px] xl:text-20 md:text-16",
       className,
     )}
   >
