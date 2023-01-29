@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Basement Grotesque";
-  src: url("basementGrotesque.woff2") format("woff2"),
-    url("basementGrotesque.woff") format("woff");
+  src: url("BasementGrotesque.woff2") format("woff2"),
+    url("BasementGrotesque.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
