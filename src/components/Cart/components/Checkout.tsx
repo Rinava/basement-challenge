@@ -1,6 +1,7 @@
 import {motion, useSpring, useTransform} from "framer-motion";
 
 import Button from "../../commons/Button";
+
 const Checkout = () => {
   const value = useSpring(0, {stiffness: 300, damping: 30});
   const percentage = useTransform(value, (value) => `${value}%`);
@@ -12,9 +13,9 @@ const Checkout = () => {
   return (
     <Button
       className="w-full py-4"
-      mouseEnter={() => handleCheckoutHover(true)}
-      mouseLeave={() => handleCheckoutHover(false)}
       onClick={() => console.log("checkout")}
+      onMouseEnter={() => handleCheckoutHover(true)}
+      onMouseLeave={() => handleCheckoutHover(false)}
     >
       <svg className="w-full" fill="none" viewBox="0 0 341 42" xmlns="http://www.w3.org/2000/svg">
         <defs>

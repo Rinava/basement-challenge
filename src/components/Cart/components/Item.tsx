@@ -4,6 +4,7 @@ import {useState} from "react";
 
 import parsePrice from "../../../utils/parsePrice";
 import Button from "../../commons/Button";
+
 const QuantitySelector = ({quantity, setQuantity}) => {
   const handleQuantityChange = (operation) => {
     if (operation === "+") {
