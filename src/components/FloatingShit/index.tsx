@@ -6,6 +6,7 @@ import {useCursor} from "../../contexts/CursorContext";
 interface FloatingShitProps {
   reference: React.RefObject<HTMLDivElement>;
   variant?: "default" | "two";
+  className?: string;
 }
 
 const ShitOne = () => (
@@ -55,17 +56,11 @@ const ShitTwo = () => (
 );
 
 const variations = {
-  default: {
-    component: <ShitOne />,
-    className: "top-15 left-0 md:top-50 md:left-3",
-  },
-  two: {
-    component: <ShitTwo />,
-    className: "top-14 right-0 md:top-44 md:right-2",
-  },
+  default: <ShitOne />,
+  two: <ShitTwo />,
 };
 
-const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
+const FloatingShit = ({reference, variant = "default", className}: FloatingShitProps) => {
   const {setCursor} = useCursor();
 
   const x = useMotionValue(0);
@@ -90,8 +85,8 @@ const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
       drag
       aria-hidden="true"
       className={clsx(
-        "z-50 absolute w-20 h-20 opacity-75 cursor-pointer hover:opacity-80 md:w-48 md:h-48 group",
-        variations[variant].className,
+        "z-50 absolute w-20 h-20 opacity-75 cursor-pointer hover:opacity-75 md:w-48 md:h-48 group",
+        className,
       )}
       dragConstraints={reference}
       dragTransition={{bounceStiffness: 150, bounceDamping: 10}}
@@ -102,7 +97,7 @@ const FloatingShit = ({reference, variant = "default"}: FloatingShitProps) => {
       onHoverEnd={() => setCursor("default")}
       onHoverStart={() => setCursor("hover")}
     >
-      {variations[variant].component}
+      {variations[variant]}
     </motion.div>
   );
 };

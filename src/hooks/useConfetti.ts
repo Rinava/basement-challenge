@@ -1,38 +1,28 @@
 const confetti = require("canvas-confetti");
 
-function randomInRange(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
+const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
 const useConfetti = (ref: React.RefObject<HTMLCanvasElement>) => {
   const confettiSettings = {
-    angle: 90,
     spread: 360,
     startVelocity: 45,
-    elementCount: 50,
-    dragFriction: 0.12,
-    duration: 3000,
-    stagger: 3,
-    width: "10px",
-    height: "10px",
-    ticks: 60,
-    zIndex: 0,
-    perspective: "500px",
-    colors: ["#FF4D00", "#F4E3D6", "#FFFF", "#19191D", "#141414"],
+    colors: ["#ff4d00", "#f4e3d6", "#fff", "#19191d", "#141414"],
   };
 
   const fireConfetti = () => {
-    const duration = 1 * 1000;
+    const duration = 1000;
     const animationEnd = Date.now() + duration;
 
     const interval: NodeJS.Timeout = setInterval(() => {
-      let timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-      let particleCount = 100 * (timeLeft / duration);
-
       if (ref.current) {
+        let timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        let particleCount = 100 * (timeLeft / duration);
+
         const myConfetti = confetti.create(ref.current, {
           resize: true,
           useWorker: true,

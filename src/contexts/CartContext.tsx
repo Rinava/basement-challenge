@@ -96,6 +96,7 @@ const CartProvider = ({children}: any) => {
   };
 
   useEffect(() => {
+    // https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
     const body = document.querySelector("body");
 
     addToCartState || cartState

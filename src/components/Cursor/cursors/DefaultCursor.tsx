@@ -6,10 +6,11 @@ const DefaultCursor = () => (
     width="66"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M42.5 38.5V34.5H72.5V38.5H42.5Z" fill="white" stroke="black" />
-    <path d="M0.5 34.5V38.5H30.5V34.5H0.5Z" fill="white" stroke="black" />
-    <path d="M34.5 42.5H38.5V72.5H34.5V42.5Z" fill="white" stroke="black" />
-    <path d="M34.5 0.5H38.5V30.5H34.5V0.5Z" fill="white" stroke="black" />
+    <path
+      d="M42.5 38.5v-4h30v4h-30ZM.5 34.5v4h30v-4H.5ZM34.5 42.5h4v30h-4v-30ZM34.5.5h4v30h-4V.5Z"
+      fill="#fff"
+      stroke="#000"
+    />
   </svg>
 );
 

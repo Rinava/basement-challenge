@@ -12,12 +12,14 @@ interface Props {
   product: Product;
   className: string;
 }
+
 const MotionImage = motion(Image);
+
 const Product = ({product, className}: Props) => {
   const [grabbing, setGrabbing] = useState(false);
+  const {cursor, setCursor} = useCursor();
   const {isMouseCloserToCart} = useDragToCart();
   const {addToCart} = useCart();
-  const {cursor, setCursor} = useCursor();
 
   const handleDragStart = () => {
     setCursor("grab");
@@ -35,12 +37,12 @@ const Product = ({product, className}: Props) => {
   return (
     <li className={clsx("group", className)}>
       <div className="relative drop-shadow-orange">
-        <div className="z-10 absolute w-full h-full bg-gradient-to-b from-black to-[#1D1D1D] transition-transform asdgroup-hover:scale-y-125 origin-bottom-left duration-500" />
+        <div className="absolute z-10 w-full h-full bg-gradient-to-b from-black to-[#1D1D1D]" />
         <MotionImage
           drag
           dragSnapToOrigin
           alt={product.title}
-          className="relative z-20 w-full object-cover bg-opacity-0 group-hover:drop-shadow-[0_0px_0.25rem_#fff] aspect-[343/392] md:aspect-[440/578]"
+          className="relative z-20 w-full object-cover group-hover:drop-shadow-[0_0px_0.25rem_#fff] aspect-[343/392] md:aspect-[440/578]"
           dragTransition={{bounceStiffness: 200, bounceDamping: 20}}
           height={392}
           src={product.image}
@@ -57,7 +59,7 @@ const Product = ({product, className}: Props) => {
         <Image
           alt={product.title}
           className={clsx(
-            "absolute left-0 top-0 z-10 w-full object-cover bg-opacity-0 brightness-0 transition aspect-[343/392] md:aspect-[440/578]",
+            "absolute inset-0 z-10 w-full h-full object-cover brightness-0 transition",
             grabbing && "drop-shadow-[0_0px_0.25rem_#fff]",
           )}
           height={392}

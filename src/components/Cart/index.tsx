@@ -1,5 +1,5 @@
+import {useMemo, useRef} from "react";
 import clsx from "clsx";
-import {useRef} from "react";
 
 import useConfetti from "../../hooks/useConfetti";
 import Actionable from "../commons/Actionable";
@@ -13,12 +13,14 @@ import AddToCartModal from "./components/AddToCartModal";
 
 const Cart = () => {
   const {cart, addToCart} = useCart();
-  const confettiRef = useRef<HTMLCanvasElement>(null);
 
+  const confettiRef = useRef<HTMLCanvasElement>(null);
   const fireConfetti = useConfetti(confettiRef);
 
-  const total = parsePrice(
-    cart.items?.reduce((acc, item) => acc + item.product.price * item.quantity, 0),
+  const totalPrice = useMemo(
+    () =>
+      parsePrice(cart.items?.reduce((acc, item) => acc + item.product.price * item.quantity, 0)),
+    [cart.items],
   );
 
   return (
@@ -36,15 +38,15 @@ const Cart = () => {
       />
       <div
         className={clsx(
-          "fixed top-0 right-0 w-full h-full flex flex-col justify-between  bg-black z-modal md:max-w-[824px] md:max-h-[821px] md:border-l-2 md:border-b-2",
+          "fixed top-0 right-0 w-full h-full flex flex-col justify-between bg-black z-modal md:max-w-[824px] md:max-h-[821px] md:border-l-2 md:border-b-2",
           cart.isOpen ? "block" : "hidden",
         )}
       >
-        <div className="px-4 md:px-8 flex flex-col overflow-hidden">
+        <div className="px-4 flex flex-col overflow-hidden md:px-8">
           <div>
             <Actionable
               action={() => cart.setOpenState(false)}
-              className="uppercase block text-14 ml-auto my-2 md:mt-11 md:mb-9 md:text-24"
+              className="uppercase block text-14 ml-auto my-2 md:mt-11 md:mb-6 md:text-24"
             >
               Close
             </Actionable>
@@ -56,7 +58,7 @@ const Cart = () => {
               {cart.items.map((item) => (
                 <li key={item.id}>
                   <Item
-                    handleChanges={() => cart.manage({type: "update", payload: item})}
+                    handleChanges={(newItem) => cart.manage({type: "update", payload: newItem})}
                     item={item}
                     onRemove={() => cart.manage({type: "remove", payload: item})}
                   />
@@ -70,11 +72,16 @@ const Cart = () => {
           )}
         </div>
 
-        <div className="px-4 md:px-0 flex flex-col md:flex-row items-center md:border-t-2">
-          <p className="w-full pb-4 md:pb-0 md:w-auto md:px-8 uppercase h-full flex items-center leading-none text-20 md:text-35 justify-between border-b-2 border-white md:border-b-0 md:flex-1 md:border-r-2 md:justify-start">
-            <span className="md:pr-3">Total:</span> <span>{total}</span>
+        <div className="px-4 flex flex-col items-center md:px-0 md:flex-row md:border-t-2">
+          <p
+            className={clsx(
+              "w-full pb-4 uppercase h-full flex items-center leading-none text-20 justify-between border-b-2 border-white",
+              "md:w-auto md:pb-0 md:px-8 md:text-35 md:justify-start md:border-r-2 md:border-b-0 md:flex-1",
+            )}
+          >
+            <span className="md:pr-3">Total:</span> <span>{totalPrice}</span>
           </p>
-          <Checkout action={() => fireConfetti()} />
+          <Checkout action={() => fireConfetti()} disabled={!cart.items?.length} />
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import {ReactNode, useMemo} from "react";
-import clsx from "clsx";
 import {motion} from "framer-motion";
+import clsx from "clsx";
 
 import {useCursor} from "../../contexts/CursorContext";
 import {useMouse} from "../../contexts/MouseContext";

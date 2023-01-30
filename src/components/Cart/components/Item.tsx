@@ -2,12 +2,12 @@ import clsx from "clsx";
 import Image from "next/image";
 import {Fragment, useEffect, useMemo, useState} from "react";
 
-import {useCart} from "../../../contexts/CartContext";
-import {useCursor} from "../../../contexts/CursorContext";
 import {CartItem} from "../../../types";
 import {Size} from "../../../types/product";
-import parsePrice from "../../../utils/parsePrice";
 import Actionable from "../../commons/Actionable";
+import {useCart} from "../../../contexts/CartContext";
+import {useCursor} from "../../../contexts/CursorContext";
+import parsePrice from "../../../utils/parsePrice";
 
 const QuantitySelector = ({
   quantity,
@@ -24,7 +24,7 @@ const QuantitySelector = ({
       <div className="flex border border-white rounded-full py-0.5">
         <Actionable
           action={() => quantity > 1 && setQuantity(quantity - 1)}
-          className="text-11 md:text-21 pl-1.5 disabled:opacity-50"
+          className="text-11 pl-1.5 md:text-21 md:pl-3 disabled:opacity-50"
           disabled={quantity <= 1}
         >
           -
@@ -39,7 +39,7 @@ const QuantitySelector = ({
         </span>
         <Actionable
           action={() => quantity < maxQuantity && setQuantity(quantity + 1)}
-          className="text-11 md:text-21 pr-1.5 disabled:opacity-50"
+          className="text-11 pr-1.5 md:text-21 md:pr-3 disabled:opacity-50"
           disabled={quantity >= maxQuantity}
         >
           +
@@ -71,7 +71,7 @@ const SizeSelector = ({
             <label
               key={s}
               className={clsx(
-                "leading-none flex justify-center items-center cursor-pointer w-5 h-5 md:w-9 md:h-9 border-white pt-[1px] rounded-full text-11 md:text-21 uppercase",
+                "uppercase leading-none flex justify-center items-center cursor-pointer w-5 h-5 border-white pt-[1px] rounded-full text-11 md:w-9 md:h-9 md:text-21",
                 s === size && "border",
                 !availableSizes.includes(s) && "opacity-50 cursor-not-allowed",
               )}
@@ -106,7 +106,6 @@ interface ItemProps {
 }
 
 const Item = ({item, handleChanges, className, onRemove}: ItemProps) => {
-  const [quantity, setQuantity] = useState(item.quantity || 1);
   const {cart} = useCart();
 
   const getCurrentProductSizes = () => {
@@ -121,6 +120,7 @@ const Item = ({item, handleChanges, className, onRemove}: ItemProps) => {
     .map((s) => s.size)
     .filter((s) => !getCurrentProductSizes().includes(s));
 
+  const [quantity, setQuantity] = useState(item.quantity || 1);
   const [size, setSize] = useState<Size>(item.size || availableSizes[0]);
 
   const maxQuantity = useMemo(
@@ -155,9 +155,9 @@ const Item = ({item, handleChanges, className, onRemove}: ItemProps) => {
         src={item.product.image}
         width={100}
       />
-      <div className="relative pl-3 md:pl-7 flex flex-col h-full w-full gap-0.5 md:justify-between md:h-56">
+      <div className="relative pl-3 flex flex-col h-full w-full gap-0.5 md:pl-7 md:justify-between md:h-56">
         {onRemove && (
-          <Actionable action={onRemove} className="text-11 md:text-21 absolute right-0">
+          <Actionable action={onRemove} className="absolute right-0 text-11 md:text-21">
             X
           </Actionable>
         )}
@@ -177,7 +177,7 @@ const Item = ({item, handleChanges, className, onRemove}: ItemProps) => {
             setSize={setSize}
             size={size}
           />
-          <p className="text-14 md:text-35 pt-1 md:absolute bottom-0 right-0">
+          <p className="leading-none text-14 bottom-0 right-0 pt-1 md:text-35 md:absolute">
             {parsePrice(item.product.price * quantity)}
           </p>
         </div>

@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import {motion, useSpring, useTransform} from "framer-motion";
 import {ReactNode, useEffect} from "react";
+import {motion, useSpring, useTransform} from "framer-motion";
+import clsx from "clsx";
 
 interface HeaderProps {
   className?: string;
@@ -9,7 +9,9 @@ interface HeaderProps {
 const Pill = ({children, className}: {children: ReactNode; className?: string}) => (
   <span
     className={clsx(
-      "select-none absolute bottom-2 md:bottom-5 xl:bottom-10 border-2 border-solid border-white px-3 md:px-6 xl:px-12 py-2 md:py-3 xl:py-6 rounded-[100%] leading-none text-[6px] xl:text-20 md:text-16",
+      "absolute bottom-2 border-2 border-solid border-white px-3 py-2 rounded-[100%] leading-none text-[6px] ",
+      "md:bottom-5 md:px-6 md:py-3 md:text-16",
+      "xl:bottom-10 xl:px-12 xl:py-6 xl:text-20",
       className,
     )}
   >
@@ -18,20 +20,20 @@ const Pill = ({children, className}: {children: ReactNode; className?: string}) 
 );
 
 const Header = ({className}: HeaderProps) => {
-  const value1 = useSpring(0, {stiffness: 10, damping: 2, mass: 0.5, velocity: 1});
-  const percentage1 = useTransform(value1, (value) => `${value}%`);
+  const dryValue = useSpring(0, {stiffness: 10, damping: 2, mass: 0.5, velocity: 1});
+  const dryPercentage = useTransform(dryValue, (value) => `${value}%`);
 
-  const value2 = useSpring(0, {stiffness: 30, damping: 10, mass: 0.5});
-  const percentage2 = useTransform(value2, (value) => `${value}%`);
+  const wetValue = useSpring(0, {stiffness: 30, damping: 10, mass: 0.5});
+  const wetPercentage = useTransform(wetValue, (value) => `${value}%`);
 
   useEffect(() => {
     setTimeout(() => {
-      value1.set(40);
+      dryValue.set(40);
       setTimeout(() => {
-        value1.set(100);
+        dryValue.set(100);
       }, 1500);
       setTimeout(() => {
-        value2.set(100);
+        wetValue.set(100);
       }, 2200);
     }, 1200);
   }, []);
@@ -47,7 +49,7 @@ const Header = ({className}: HeaderProps) => {
         />
         <defs>
           <mask id="dry">
-            <motion.rect fill="#fff" height="100%" style={{y: percentage1}} width="100%" x="0" />
+            <motion.rect fill="#fff" height="100%" style={{y: dryPercentage}} width="100%" x="0" />
           </mask>
         </defs>
         <path
@@ -60,8 +62,8 @@ const Header = ({className}: HeaderProps) => {
       <svg className="w-[68%] mx-auto" viewBox="0 0 230 45" xmlns="http://www.w3.org/2000/svg">
         <title>Supply</title>
         <defs>
-          <mask id="water">
-            <motion.rect fill="#fff" style={{height: percentage2}} width="100%" x="0" y="0" />
+          <mask id="wet">
+            <motion.rect fill="#fff" style={{height: wetPercentage}} width="100%" x="0" y="0" />
           </mask>
         </defs>
         <path
@@ -72,8 +74,7 @@ const Header = ({className}: HeaderProps) => {
         <path
           d="M12.969 29.976v-.546H.964v.546c0 12.387 3.056 14.679 20.845 14.679 17.298 0 20.19-1.965 20.19-12.224 0-8.457-1.091-10.313-7.039-11.95-3.71-1.037-6.712-1.692-13.151-2.947-6.93-.982-8.567-1.582-8.567-3.765 0-3.056 1.31-3.71 8.567-3.71 6.657 0 7.694.927 7.694 5.456v.546h12.005v-.546C41.508 3.074 38.398.782 21.81.782 5.657.782 1.783 3.347 1.783 12.623c0 9.004 1.364 10.969 8.512 12.66 5.73 1.31 7.858 1.8 11.514 2.401 6.712 1.31 8.731 1.91 8.731 4.256 0 2.893-1.473 3.438-8.731 3.438-7.367 0-8.84-.655-8.84-5.402ZM81.913 26.538V1.437H70.454v25.101c0 7.476-1.146 8.84-7.421 8.84-6.276 0-7.421-1.364-7.421-8.84V1.437h-11.46v25.101c0 15.28 2.947 18.117 18.88 18.117 15.935 0 18.881-2.838 18.881-18.117ZM84.65 1.437V44h11.46V32.813h13.86c10.368-.545 13.206-3.71 13.206-14.733v-2.183c0-11.35-3.056-14.46-14.188-14.46H84.65ZM96.11 22.99V10.713h9.931c4.802 0 5.675.983 5.675 6.33 0 5.02-.873 5.948-5.675 5.948H96.11ZM125.095 1.437V44h11.46V32.813h13.86c10.368-.545 13.206-3.71 13.206-14.733v-2.183c0-11.35-3.056-14.46-14.188-14.46h-24.338Zm11.46 21.554V10.713h9.931c4.802 0 5.675.983 5.675 6.33 0 5.02-.873 5.948-5.675 5.948h-9.931ZM165.54 1.437V44h30.504v-9.822H177V1.437h-11.46ZM229.838 1.437h-12.55l-8.076 15.825h-.328l-7.912-15.825h-13.097l15.389 27.393V44h11.459V28.83l15.115-27.393Z"
           fill="#fff"
-          mask="url(#water)"
-          strokeWidth="0.5"
+          mask="url(#wet)"
         />
       </svg>
 

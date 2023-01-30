@@ -1,12 +1,14 @@
+import clsx from "clsx";
 import {motion, useSpring, useTransform} from "framer-motion";
 
 import Actionable from "../../commons/Actionable";
 
 interface CheckoutProps {
   action: () => void;
+  disabled?: boolean;
 }
 
-const Checkout = ({action}: CheckoutProps) => {
+const Checkout = ({action, disabled}: CheckoutProps) => {
   const value = useSpring(0, {stiffness: 300, damping: 30});
   const percentage = useTransform(value, (value) => `${value}%`);
 
@@ -17,7 +19,8 @@ const Checkout = ({action}: CheckoutProps) => {
   return (
     <Actionable
       action={action}
-      className="w-full py-4 md:px-8 md:py-6 md:w-64"
+      className={clsx("w-full py-4 md:mx-8 md:py-6 md:w-64", disabled && "opacity-50")}
+      disabled={disabled}
       onMouseEnter={() => handleCheckoutHover(true)}
       onMouseLeave={() => handleCheckoutHover(false)}
     >

@@ -21,17 +21,19 @@
 html,
 body,
 #__next {
-  background: black;
-  color: white;
-  min-height: 100vh;
-  padding: 0;
-  margin: 0;
+  @apply bg-black text-white min-h-screen p-0 m-0;
+
   font-family: 'Basement Grotesque', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 body {
-  overflow-x: hidden;
+  @apply overflow-x-hidden;
+}
+
+body.modal-open  {
+  @apply h-screen overflow-y-hidden;
+  padding-right: 15px;
 }
 
 a {
@@ -44,24 +46,15 @@ a {
   cursor: none !important;
 }
 
-
 .container {
   @apply max-w-[1440px] px-4 md:px-8 mx-auto;
 }
 
-/* For Webkit-based browsers (Chrome, Safari and Opera) */
+/* https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/ */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome, Safari and Opera */
 }
-
-/* For IE, Edge and Firefox */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-body.modal-open  {
-  height: 100vh;
-  overflow-y: hidden;
-  padding-right: 15px;
 }
