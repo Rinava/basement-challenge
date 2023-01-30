@@ -29,7 +29,7 @@ const Cart = () => {
         ref={confettiRef}
         className="pointer-events-none fixed inset-0 z-confetti w-full h-full"
       />
-      {addToCart.product && <AddToCartModal open={addToCart.isOpen} product={addToCart.product} />}
+      {addToCart.product && <AddToCartModal product={addToCart.product} />}
       <div
         className={clsx(
           "fixed inset-0 bg-black bg-opacity-75 transition-opacity z-modal",

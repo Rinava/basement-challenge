@@ -20,7 +20,6 @@ interface ICartCtx {
   addToCart: {
     open: (product: Product) => void;
     close: () => void;
-    isOpen: boolean;
     product: Product | null;
   };
 }
@@ -35,7 +34,6 @@ export const CartContext = createContext<ICartCtx>({
   addToCart: {
     open: () => {},
     close: () => {},
-    isOpen: false,
     product: null,
   },
 });
@@ -82,27 +80,24 @@ const CartProvider = ({children}: any) => {
   const [cart, cartDispatch] = useReducer(reducer, []);
   const [cartState, setCartState] = useState<boolean>(false);
 
-  const [addToCartState, setAddToCartState] = useState<boolean>(false);
   const [addToCartProduct, setAddToCartProduct] = useState<Product | null>(null);
 
   const handleAddToCart = (product: Product) => {
     setAddToCartProduct(product);
-    setAddToCartState(true);
   };
 
   const handleAddToCartClose = () => {
     setAddToCartProduct(null);
-    setAddToCartState(false);
   };
 
   useEffect(() => {
     // https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
     const body = document.querySelector("body");
 
-    addToCartState || cartState
+    addToCartProduct || cartState
       ? body?.classList.add("modal-open")
       : body?.classList.remove("modal-open");
-  }, [addToCartState, cartState]);
+  }, [addToCartProduct, cartState]);
 
   return (
     <CartContext.Provider
@@ -116,7 +111,6 @@ const CartProvider = ({children}: any) => {
         addToCart: {
           open: handleAddToCart,
           close: handleAddToCartClose,
-          isOpen: addToCartState,
           product: addToCartProduct,
         },
       }}

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import {useState} from "react";
 import {v4 as uuid} from "uuid";
 
@@ -10,10 +9,9 @@ import Item from "./Item";
 
 interface AddToCartModalProps {
   product: Product;
-  open: boolean;
 }
 
-const AddToCartModal = ({product, open}: AddToCartModalProps) => {
+const AddToCartModal = ({product}: AddToCartModalProps) => {
   const {addToCart, cart} = useCart();
 
   const [cartItem, setCartItem] = useState<CartItem>({
@@ -30,7 +28,7 @@ const AddToCartModal = ({product, open}: AddToCartModalProps) => {
   };
 
   return product ? (
-    <div className={clsx("relative z-modal", !open && "hidden")} role="dialog">
+    <div className={"relative z-modal"} role="dialog">
       <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
 
       <div className="fixed inset-0 z-10 px-4 overflow-y-auto flex justify-center items-center m-auto max-w-lg md:max-w-3xl ">
