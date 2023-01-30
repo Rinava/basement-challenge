@@ -1,11 +1,9 @@
-import {useEffect} from "react";
-
 const confetti = require("canvas-confetti");
 
 function randomInRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
-const useConfetti = (ref: React.RefObject<HTMLDivElement>) => {
+const useConfetti = (ref: React.RefObject<HTMLCanvasElement>) => {
   const confettiSettings = {
     angle: 90,
     spread: 360,
