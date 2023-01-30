@@ -4,6 +4,7 @@ module.exports = {
     screens: {
       md: "768px",
       xl: "1024px",
+      cursor: {raw: "(pointer: fine)"},
     },
     fontSize: {
       11: "0.6875rem",
@@ -12,6 +13,7 @@ module.exports = {
       18: "1.125rem",
       20: "1.25rem",
       21: "1.3125rem",
+      24: "1.5rem",
       35: "2.1875rem",
     },
     colors: {
@@ -20,14 +22,12 @@ module.exports = {
       gray: "#999999",
       orange: "#ff4d00",
     },
-    dropShadow: {
-      orange: "0 1px 5px 0 rgba(255, 77, 0, 0.5)",
-    },
     extend: {
       zIndex: {
         navbar: 100,
         modal: 200,
-        cursor: 300,
+        confetti: 300,
+        cursor: 400,
       },
     },
   },

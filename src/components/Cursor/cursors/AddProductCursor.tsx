@@ -18,7 +18,7 @@ const AddProductCursor = () => (
       fill="none"
       height="127"
       stroke="white"
-      stroke-width="1.51786"
+      strokeWidth="1.51786"
       viewBox="0 0 128 127"
       width="128"
       xmlns="http://www.w3.org/2000/svg"

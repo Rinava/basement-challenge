@@ -7,19 +7,15 @@
     "stock": [
       {
         "size": "S",
-        "quantity": 10
+        "quantity": 5
       },
       {
         "size": "M",
-        "quantity": 10
-      },
-      {
-        "size": "L",
-        "quantity": 10
+        "quantity": 2
       },
       {
         "size": "XL",
-        "quantity": 10
+        "quantity": 6
       }
     ],
     "image": "/products/shirt.png"
@@ -32,19 +28,19 @@
     "stock": [
       {
         "size": "S",
-        "quantity": 10
+        "quantity": 7
       },
       {
         "size": "M",
-        "quantity": 10
+        "quantity": 6
       },
       {
         "size": "L",
-        "quantity": 10
+        "quantity": 8
       },
       {
         "size": "XL",
-        "quantity": 10
+        "quantity": 7
       }
     ],
     "image": "/products/hoodie.png"
@@ -57,86 +53,15 @@
     "stock": [
       {
         "size": "S",
-        "quantity": 10
+        "quantity": 9
       },
       {
         "size": "M",
-        "quantity": 10
+        "quantity": 5
       },
       {
         "size": "L",
-        "quantity": 10
-      }
-    ],
-    "image": "/products/cap.png"
-  },
-  {
-    "id": 4,
-    "title": "Black t-shirt",
-    "description": "Unisex Basic Softstyle T-Shirt",
-    "price": 7.95,
-    "stock": [
-      {
-        "size": "S",
-        "quantity": 10
-      },
-      {
-        "size": "M",
-        "quantity": 10
-      },
-      {
-        "size": "L",
-        "quantity": 10
-      },
-      {
-        "size": "XL",
-        "quantity": 10
-      }
-    ],
-    "image": "/products/shirt.png"
-  },
-  {
-    "id": 5,
-    "title": "Black hoodie",
-    "description": "Unisex Basic Hoodie",
-    "price": 13,
-    "stock": [
-      {
-        "size": "S",
-        "quantity": 10
-      },
-      {
-        "size": "M",
-        "quantity": 10
-      },
-      {
-        "size": "L",
-        "quantity": 10
-      },
-      {
-        "size": "XL",
-        "quantity": 10
-      }
-    ],
-    "image": "/products/hoodie.png"
-  },
-  {
-    "id": 6,
-    "title": "Black cap",
-    "description": "Unisex Basic Cap",
-    "price": 23,
-    "stock": [
-      {
-        "size": "S",
-        "quantity": 10
-      },
-      {
-        "size": "M",
-        "quantity": 10
-      },
-      {
-        "size": "L",
-        "quantity": 10
+        "quantity": 8
       }
     ],
     "image": "/products/cap.png"

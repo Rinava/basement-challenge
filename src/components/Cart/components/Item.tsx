@@ -1,48 +1,47 @@
 import clsx from "clsx";
 import Image from "next/image";
-import {useState} from "react";
+import {Fragment, useEffect, useMemo, useState} from "react";
 
+import {useCart} from "../../../contexts/CartContext";
+import {useCursor} from "../../../contexts/CursorContext";
 import {CartItem} from "../../../types";
+import {Size} from "../../../types/product";
 import parsePrice from "../../../utils/parsePrice";
 import Actionable from "../../commons/Actionable";
 
 const QuantitySelector = ({
   quantity,
   setQuantity,
+  maxQuantity,
 }: {
   quantity: number;
   setQuantity: (quantity: number) => void;
+  maxQuantity: number;
 }) => {
-  const handleQuantityChange = (operation: "+" | "-") => {
-    if (operation === "+") {
-      setQuantity(quantity + 1);
-    } else if (operation === "-" && quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   return (
-    <div className="flex items-center gap-2">
-      <label className="text-11 uppercase">Quantity:</label>
+    <div className="flex items-center gap-2 md:gap-3.5">
+      <label className="text-11 md:text-21 uppercase">Quantity:</label>
       <div className="flex border border-white rounded-full py-0.5">
-        <Actionable action={() => handleQuantityChange("-")} className="text-11 pl-1.5 ">
+        <Actionable
+          action={() => quantity > 1 && setQuantity(quantity - 1)}
+          className="text-11 md:text-21 pl-1.5 disabled:opacity-50"
+          disabled={quantity <= 1}
+        >
           -
         </Actionable>
-        <span className="text-11 px-1.5">
+        <span className="text-11 md:text-21 px-1.5">
           <input
+            disabled
             className="w-5 text-center bg-black clean-n-input"
-            min="1"
             type="number"
             value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value))}
-            onKeyPress={(e) => {
-              if (!/[0-9]/.test(e.key)) {
-                e.preventDefault();
-              }
-            }}
           />
         </span>
-        <Actionable action={() => handleQuantityChange("+")} className="text-11 pr-1.5">
+        <Actionable
+          action={() => quantity < maxQuantity && setQuantity(quantity + 1)}
+          className="text-11 md:text-21 pr-1.5 disabled:opacity-50"
+          disabled={quantity >= maxQuantity}
+        >
           +
         </Actionable>
       </div>
@@ -50,37 +49,49 @@ const QuantitySelector = ({
   );
 };
 
-const SizeSelector = () => {
-  const sizes = ["s", "m", "l", "xl"];
-
-  const [size, setSize] = useState("s");
+const SizeSelector = ({
+  size,
+  id,
+  setSize,
+  availableSizes,
+}: {
+  size: Size;
+  id: string;
+  setSize: (size: Size) => void;
+  availableSizes: Size[];
+}) => {
+  const {setCursor} = useCursor();
 
   return (
-    <div className="flex items-center gap-2">
-      <label className="text-11 uppercase">Size:</label>
+    <div className="flex items-center gap-2 md:gap-3.5">
+      <label className="text-11 md:text-21 uppercase">Size:</label>
       <div className="flex gap-[2.4px]">
-        {sizes.map((s) => (
-          <>
+        {Object.values(Size).map((s) => (
+          <Fragment key={s}>
             <label
               key={s}
               className={clsx(
-                "leading-none flex justify-center items-center cursor-pointer w-5 h-5  border-white pt-[1px] rounded-full text-11 uppercase",
+                "leading-none flex justify-center items-center cursor-pointer w-5 h-5 md:w-9 md:h-9 border-white pt-[1px] rounded-full text-11 md:text-21 uppercase",
                 s === size && "border",
+                !availableSizes.includes(s) && "opacity-50 cursor-not-allowed",
               )}
-              htmlFor={`size-${s}`}
+              htmlFor={`size-${id}-${s}`}
+              onMouseEnter={() => setCursor("hover")}
+              onMouseLeave={() => setCursor("default")}
             >
               {s}
             </label>
             <input
               checked={s === size}
               className="appearance-none"
-              id={`size-${s}`}
+              disabled={!availableSizes.includes(s)}
+              id={`size-${id}-${s}`}
               name="size"
               type="radio"
               value={s}
-              onChange={(e) => setSize(e.target.value)}
+              onChange={(e) => setSize(e.target.value as Size)}
             />
-          </>
+          </Fragment>
         ))}
       </div>
     </div>
@@ -89,27 +100,87 @@ const SizeSelector = () => {
 
 interface ItemProps {
   item: CartItem;
+  handleChanges: (item: CartItem) => void;
   className?: string;
+  onRemove?: () => void;
 }
 
-const Item = ({item, className}: ItemProps) => {
-  const [quantity, setQuantity] = useState(0);
+const Item = ({item, handleChanges, className, onRemove}: ItemProps) => {
+  const [quantity, setQuantity] = useState(item.quantity || 1);
+  const {cart} = useCart();
+
+  const getCurrentProductSizes = () => {
+    return cart.items
+      .filter((i) => i.product.id === item.product.id)
+      .filter((i) => i.id !== item.id)
+      .map((i) => i.size);
+  };
+
+  const availableSizes = item.product?.stock
+    .filter((s) => s.quantity > 0)
+    .map((s) => s.size)
+    .filter((s) => !getCurrentProductSizes().includes(s));
+
+  const [size, setSize] = useState<Size>(item.size || availableSizes[0]);
+
+  const maxQuantity = useMemo(
+    () => item.product.stock.find((s) => s.size === size)?.quantity || 0,
+    [size, item.product.stock],
+  );
+
+  useEffect(() => {
+    if (quantity > maxQuantity) {
+      setQuantity(maxQuantity);
+    }
+  }, [maxQuantity, quantity]);
+
+  useEffect(() => {
+    if (!availableSizes.includes(size)) {
+      setSize(availableSizes[0]);
+    }
+  }, [availableSizes, size]);
+
+  useEffect(() => {
+    handleChanges({...item, quantity, size});
+  }, [quantity, size]);
 
   return item.product ? (
-    <div className={clsx("flex items-center border bg-black border-white p-2", className)}>
+    <div
+      className={clsx("flex items-stretch border bg-black border-white p-2 md:p-3.5", className)}
+    >
       <Image
         alt={item.product.title}
-        className="w-auto h-24 aspect-square object-cover"
+        className="w-auto h-54 md:h-56 aspect-square object-cover"
         height={100}
         src={item.product.image}
         width={100}
       />
-      <div className="pl-3 flex flex-col gap-0.5">
-        <p className="uppercase text-14">{item.product.title}</p>
-        <p className="text-11 text-gray">{item.product.description}</p>
-        <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
-        <SizeSelector />
-        <p className="text-14 pt-1">{parsePrice(item.product.price)}</p>
+      <div className="relative pl-3 md:pl-7 flex flex-col h-full w-full gap-0.5 md:justify-between md:h-56">
+        {onRemove && (
+          <Actionable action={onRemove} className="text-11 md:text-21 absolute right-0">
+            X
+          </Actionable>
+        )}
+        <div>
+          <p className="uppercase text-14 md:text-35">{item.product.title}</p>
+          <p className="text-11 md:text-21 text-gray">{item.product.description}</p>
+        </div>
+        <div className="relative flex flex-col md:gap-2">
+          <QuantitySelector
+            maxQuantity={maxQuantity}
+            quantity={quantity}
+            setQuantity={setQuantity}
+          />
+          <SizeSelector
+            availableSizes={availableSizes}
+            id={item.id}
+            setSize={setSize}
+            size={size}
+          />
+          <p className="text-14 md:text-35 pt-1 md:absolute bottom-0 right-0">
+            {parsePrice(item.product.price * quantity)}
+          </p>
+        </div>
       </div>
     </div>
   ) : null;

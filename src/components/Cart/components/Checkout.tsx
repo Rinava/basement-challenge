@@ -2,7 +2,11 @@ import {motion, useSpring, useTransform} from "framer-motion";
 
 import Actionable from "../../commons/Actionable";
 
-const Checkout = () => {
+interface CheckoutProps {
+  action: () => void;
+}
+
+const Checkout = ({action}: CheckoutProps) => {
   const value = useSpring(0, {stiffness: 300, damping: 30});
   const percentage = useTransform(value, (value) => `${value}%`);
 
@@ -12,8 +16,8 @@ const Checkout = () => {
 
   return (
     <Actionable
-      action={() => {}}
-      className="w-full py-4"
+      action={action}
+      className="w-full py-4 md:px-8 md:py-6 md:w-64"
       onMouseEnter={() => handleCheckoutHover(true)}
       onMouseLeave={() => handleCheckoutHover(false)}
     >

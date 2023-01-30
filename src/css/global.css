@@ -48,3 +48,20 @@ a {
 .container {
   @apply max-w-[1440px] px-4 md:px-8 mx-auto;
 }
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body.modal-open  {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 15px;
+}

@@ -10,11 +10,12 @@ interface ActionableProps {
   className?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  disabled?: boolean;
   action: (() => void) | string;
 }
 
 const Actionable = forwardRef(
-  ({children, cursor, action, onMouseEnter, onMouseLeave, ...props}: ActionableProps, ref: any) => {
+  ({children, cursor, onMouseEnter, onMouseLeave, action, ...props}: ActionableProps, ref: any) => {
     const {setCursor} = useCursor();
 
     const handleMouseEnter = () => {
@@ -43,6 +44,7 @@ const Actionable = forwardRef(
         onClick={action as () => void}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        {...props}
       >
         {children}
       </button>

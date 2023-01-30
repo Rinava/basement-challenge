@@ -1,11 +1,19 @@
-import {useState, createContext, useReducer, Dispatch, SetStateAction, useContext} from "react";
+import {
+  useState,
+  createContext,
+  useReducer,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+} from "react";
 
 import {CartItem, Product} from "../types";
 
 interface ICartCtx {
   cart: {
     items: CartItem[];
-    manage: (item: CartItem) => void;
+    manage: Dispatch<CartItem | any>;
     isOpen: boolean;
     setOpenState: Dispatch<SetStateAction<boolean>>;
   };
@@ -34,8 +42,27 @@ export const CartContext = createContext<ICartCtx>({
 
 const reducer = (state: CartItem[], action: any) => {
   switch (action.type) {
-    case "add":
-      return [...state, action.payload];
+    case "add": {
+      const alreadyInCart = state.find(
+        (item) =>
+          item.product.id === action.payload.product.id && item.size === action.payload.size,
+      );
+
+      if (alreadyInCart) {
+        return state.map((item) => {
+          if (item.product.id === action.payload.product.id && item.size === action.payload.size) {
+            return {
+              ...item,
+              quantity: item.quantity + action.payload.quantity,
+            };
+          }
+
+          return item;
+        });
+      } else {
+        return [...state, action.payload];
+      }
+    }
     case "remove":
       return state.filter((item) => item.id !== action.payload.id);
     case "update":
@@ -67,6 +94,14 @@ const CartProvider = ({children}: any) => {
     setAddToCartProduct(null);
     setAddToCartState(false);
   };
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+
+    addToCartState || cartState
+      ? body?.classList.add("modal-open")
+      : body?.classList.remove("modal-open");
+  }, [addToCartState, cartState]);
 
   return (
     <CartContext.Provider

@@ -39,7 +39,7 @@ const Cursor = () => {
     <motion.div
       animate={{scale: 1}}
       className={clsx(
-        "absolute z-cursor pointer-events-none",
+        "hidden absolute z-cursor pointer-events-none cursor:block",
         variants[cursor || "default"].className,
       )}
       initial={{scale: 0}}
