@@ -1,0 +1,23 @@
+{
+    "name": "Basement Supply",
+    "short_name": "b.",
+    "theme_color": "#000",
+    "background_color": "#000",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "faviconx260.png",
+        "sizes": "260x260",
+        "type": "image/png"
+      },
+      {
+        "src" : "faviconx512.png",
+        "sizes" : "512x512",
+        "type" : "image/png"
+      }
+    ],
+    "splash_pages": null
+  }
